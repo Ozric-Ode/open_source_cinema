@@ -7,6 +7,18 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+class Users {
+  String userId;
+  String name;
+  String email;
+
+  Users({
+    this.userId,
+    this.name,
+    this.email,
+  });
+}
+
 class User with ChangeNotifier {
   String userId;
   String name;
