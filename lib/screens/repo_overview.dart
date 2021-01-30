@@ -16,13 +16,11 @@ class RepoOverview extends StatefulWidget {
 class _RepoOverviewState extends State<RepoOverview> {
   String authUserId;
   var newKey;
-  @override
-  void initState() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(newKey),
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text('Open Source Cinema'),
       ),
