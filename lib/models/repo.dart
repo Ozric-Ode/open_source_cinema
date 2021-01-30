@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import './scripts.dart';
 
-class Repo {
+class Repo with ChangeNotifier {
   final String repoId;
   final String title;
   List<Scripts> script;
