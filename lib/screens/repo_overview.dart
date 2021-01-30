@@ -8,23 +8,39 @@ import 'package:firebase_database/firebase_database.dart';
 
 class RepoOverview extends StatelessWidget {
   Future<void> fun() async {
-    final dbRef = FirebaseDatabase.instance.reference().child("users");
+    // final dbRef = FirebaseDatabase.instance.reference().child("users");
 
-    await dbRef
-        .orderByChild("userid")
-        .equalTo("TG3flo3AUseRONcN7ls3Y6RcoKP2")
-        .once()
-        .then((DataSnapshot dataSnapshot) {
+    final dbRef = FirebaseDatabase.instance
+        .reference()
+        .child("users")
+        .child("-MSIOAwSH-pyr1UvQF4w");
+
+    // print(dbRef);
+    //  .orderByChild('MSIOAwSH-pyr1UvQF4w')
+    await dbRef.once().then((DataSnapshot dataSnapshot) {
       var newKey = dataSnapshot.value;
       print(newKey);
-      var _list = newKey.values.toList();
-      print(_list);
-      var _lis = _list[0].values.toList();
-      print(_lis);
-      String userAuthid = _lis[1];
-      print(userAuthid);
-      newKey.forEach((k, v) => print('${k}'));
+      print(newKey['name']);
+
+      // newKey.forEach((key, values) {});
     });
+
+    // await dbRef
+    //     .orderByChild("userid")
+    //     .equalTo("TG3flo3AUseRONcN7ls3Y6RcoKP2")
+    //     .once()
+    //     .then((DataSnapshot dataSnapshot) {
+    //   var newKey = dataSnapshot.value;
+    //   print(newKey);
+    //   var _list = newKey.values.toList();
+    //   print(_list);
+    //   var _lis = _list[0].values.toList();
+    //   print(_lis);
+    //   String userAuthid = _lis[1];
+    //   print(userAuthid);
+    //   print(newKey[0]);
+    //   newKey.forEach((k, v) => print('${k}'));
+    // });
   }
 
   @override
