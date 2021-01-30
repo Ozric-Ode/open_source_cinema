@@ -43,7 +43,7 @@ class User with ChangeNotifier {
     }
   }
 
-   Future<void> fetchUser(String authUserId) async {
+  static Future<User> fetchUser(String authUserId) async {
     print("Authuserid ${authUserId}");
     final dbRef =
         FirebaseDatabase.instance.reference().child("users").child(authUserId);
@@ -57,8 +57,7 @@ class User with ChangeNotifier {
     });
     print("Madarchod ${newKey}");
     
-     userId=newKey['userid'];
-     name=newKey['name'];
-     email=newKey['email'];
+    User userobj=new User(userId:newKey['userid'] ,email:newKey['email'] ,name:newKey['name']);
+     return userobj;
   }
 }
