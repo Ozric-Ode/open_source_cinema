@@ -10,14 +10,14 @@ import 'package:http/http.dart' as http;
 
 
 class User with ChangeNotifier {
-  final String userId;
-  final String name;
-  final String email;
+   String userId;
+   String name;
+   String email;
 
   User({
-    @required this.userId,
-    @required this.name,
-    @required this.email,
+     this.userId,
+     this.name,
+     this.email,
   });
 
   Future<String> addUsers(String token) async {
@@ -43,7 +43,7 @@ class User with ChangeNotifier {
     }
   }
 
-  static Future<Map<String, dynamic>> fetchUser(String authUserId) async {
+   Future<void> fetchUser(String authUserId) async {
     print("Authuserid ${authUserId}");
     final dbRef =
         FirebaseDatabase.instance.reference().child("users").child(authUserId);
@@ -56,6 +56,9 @@ class User with ChangeNotifier {
       print("Name = ${newKey['name']}");
     });
     print("Madarchod ${newKey}");
-    return newKey;
+    
+     userId=newKey['userid'];
+     name=newKey['name'];
+     email=newKey['email'];
   }
 }

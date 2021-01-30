@@ -6,28 +6,31 @@ import '../providers/auth.dart';
 
 class AppDrawer extends StatelessWidget {
   Map<String, dynamic> umap;
+   User userObj=new User();
   Future<void> getuser(BuildContext context) async {
-    final authUserId = Provider.of<Auth>(context, listen: false).authUserId;
+    final authUserId = Provider.of<Auth>(context, listen: true).authUserId;
     print("Authuserid-- ${authUserId}");
-    umap = await User.fetchUser(authUserId);
-    print(umap);
+   
+    userObj.fetchUser(authUserId);
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    getuser(context);
+    getuser(context); 
+    
     return Drawer(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("umap['name']"),
-            accountEmail: Text("umap['email']"),
+            accountName: Text("Monikindirjit Sigh"),
+            accountEmail: Text("monik@gmail.com"),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                   ? Colors.blue
                   : Colors.white,
               child: Text(
-                "A",
+                "M",
                 style: TextStyle(fontSize: 40.0),
               ),
             ),
