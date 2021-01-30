@@ -10,14 +10,16 @@ class AppDrawer extends StatelessWidget {
   Future<void> getuser(BuildContext context) async {
     final authUserId = Provider.of<Auth>(context, listen: true).authUserId;
     print("Authuserid-- ${authUserId}");
+    Users obj;
    
-    userObj.fetchUser(authUserId);
+    User.fetchUser(authUserId,  obj);
+    print("Naam = ${obj.name}");
     
   }
 
   @override
   Widget build(BuildContext context) {
-    getuser(context); 
+    //getuser(context); 
     
     return Drawer(
       child: Column(
