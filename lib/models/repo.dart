@@ -1,17 +1,21 @@
 import "package:flutter/material.dart";
+import './scripts.dart';
 
 class Repo {
+  final String repoId;
   final String title;
-  final List<String> scripts;
-  final int parentId;
+  List<Scripts> script;
+  String description;
+  final int parentRepoId;
   final String authorId;
   bool isForked = false;
 
   Repo({
-    @required this.parentId,
+    @required this.repoId,
+    @required this.parentRepoId,
     @required this.authorId,
     @required this.title,
     @required this.isForked,
-    @required this.scripts,
+    this.description,
   });
 }
