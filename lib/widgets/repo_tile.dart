@@ -5,8 +5,8 @@ import '../providers/repo_provider.dart';
 
 class RepoTile extends StatelessWidget {
   @override
-  final title;
-  final 
+  final title='';
+  // final 
 
   Widget build(BuildContext context) {
     return Card(
