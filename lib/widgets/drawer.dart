@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/user.dart';
 
 import '../providers/auth.dart';
 
 class AppDrawer extends StatelessWidget {
+  Map<String, dynamic> umap;
+  Future<void> getuser(BuildContext context) async {
+    final authUserId = Provider.of<Auth>(context, listen: false).authUserId;
+    print("Authuserid-- ${authUserId}");
+    umap = await User.fetchUser(authUserId);
+    print(umap);
+  }
+
   @override
   Widget build(BuildContext context) {
+    getuser(context);
     return Drawer(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("Ashish Rawat"),
-            accountEmail: Text("ashishrawat2911@gmail.com"),
+            accountName: Text("umap['name']"),
+            accountEmail: Text("umap['email']"),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                   ? Colors.blue
