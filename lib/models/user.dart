@@ -7,8 +7,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class User with ChangeNotifier {
   final String userId;
   final String name;
@@ -41,21 +39,5 @@ class User with ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
-  }
-
-  static Future<Map<String, dynamic>> fetchUser(String authUserId) async {
-    print("Authuserid ${authUserId}");
-    final dbRef =
-        FirebaseDatabase.instance.reference().child("users").child(authUserId);
-
-    
-    var newKey;
-    await dbRef.once().then((DataSnapshot dataSnapshot) {
-      newKey = dataSnapshot.value;
-
-      print("Name = ${newKey['name']}");
-    });
-    print("Madarchod ${newKey}");
-    return newKey;
   }
 }

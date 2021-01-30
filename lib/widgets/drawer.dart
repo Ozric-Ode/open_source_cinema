@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
@@ -5,23 +6,33 @@ import '../models/user.dart';
 import '../providers/auth.dart';
 
 class AppDrawer extends StatelessWidget {
-  Map<String, dynamic> umap;
-  Future<void> getuser(BuildContext context) async {
-    final authUserId = Provider.of<Auth>(context, listen: false).authUserId;
-    print("Authuserid-- ${authUserId}");
-    umap = await User.fetchUser(authUserId);
-    print(umap);
-  }
+  final usermap;
+  AppDrawer(this.usermap);
 
   @override
   Widget build(BuildContext context) {
-    getuser(context);
+    print(usermap);
+    // final authUserId = Provider.of<Auth>(context, listen: false).authUserId;
+    // print("Authuserid-- ${authUserId}");
+
+    // final dbRef =
+    //     FirebaseDatabase.instance.reference().child("users").child(authUserId);
+
+    // var newKey;
+    // dbRef.once().then((DataSnapshot dataSnapshot) {
+    //   newKey = dataSnapshot.value;
+
+    //   print(newKey);
+    // });
+    // print(newKey);
+    // usermap = umap.fetchUser(authUserId);
+
     return Drawer(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("umap['name']"),
-            accountEmail: Text("umap['email']"),
+            accountName: Text("usermap.name"),
+            accountEmail: Text("usermap.email"),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                   ? Colors.blue
