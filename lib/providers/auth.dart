@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/user.dart';
 
 import '../models/http_exception.dart';
 
@@ -13,6 +14,7 @@ class Auth with ChangeNotifier {
   DateTime _expiryDate;
   String _userId;
   Timer _authTimer;
+  String _authUserId;
 
   bool get isAuth {
     return token != null;
@@ -31,8 +33,12 @@ class Auth with ChangeNotifier {
     return _userId;
   }
 
+  String get authUserId {
+    return _authUserId;
+  }
+
   Future<void> _authenticate(
-      String email, String password, String urlSegment) async {
+      String email, String password, String name, String urlSegment) async {
     final url =
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$apiKey';
     try {
@@ -59,6 +65,12 @@ class Auth with ChangeNotifier {
           ),
         ),
       );
+      print(responseData);
+      if (name != "") {
+        User user = new User(name: name, email: email, userId: _userId);
+        _authUserId = await user.addUsers(token);
+        print(_authUserId);
+      }
       _autoLogout();
       notifyListeners();
       final prefs = await SharedPreferences.getInstance();
@@ -76,18 +88,13 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> signup(String email, String password, String name) async {
-    final url =
-        'https://bhaadepay-default-rtdb.firebaseio.com/users/$userId.json?auth=$_token';
-    print("success");
-    // try {
-    //   final reponse = await http.post(url, body: json.encode({value}));
-    // } catch (e) {}
-    return _authenticate(email, password, 'signUp');
+    return _authenticate(email, password, name, 'signUp');
   }
 
   Future<void> login(String email, String password) async {
     print("success");
-    return _authenticate(email, password, 'signInWithPassword');
+    String name = "";
+    return _authenticate(email, password, name, 'signInWithPassword');
   }
 
   Future<bool> tryAutoLogin() async {

@@ -84,6 +84,8 @@ class _AuthCardState extends State<AuthCard>
     'password': '',
     'name': '',
   };
+  
+
   var _isLoading = false;
   final _passwordController = TextEditingController();
   AnimationController _controller;
