@@ -6,7 +6,7 @@ class Repo {
   final String title;
   List<Scripts> script;
   String description;
-  final int parentRepoId;
+  final String parentRepoId;
   final String authorId;
   bool isForked = false;
 
