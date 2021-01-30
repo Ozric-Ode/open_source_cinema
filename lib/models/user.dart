@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class User with ChangeNotifier {
-  final String userId;
-  final String name;
-  final String email;
+  String userId;
+  String name;
+  String email;
 
   User({
-    @required this.userId,
-    @required this.name,
-    @required this.email,
+    this.userId,
+    this.name,
+    this.email,
   });
 
   Future<String> addUsers(String token) async {
@@ -39,5 +39,23 @@ class User with ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<void> fetchUser(String authUserId) async {
+    print("Authuserid ${authUserId}");
+    final dbRef =
+        FirebaseDatabase.instance.reference().child("users").child(authUserId);
+
+    var newKey;
+    await dbRef.once().then((DataSnapshot dataSnapshot) {
+      newKey = dataSnapshot.value;
+
+      print("Name = ${newKey['name']}");
+    });
+    print("Madarchod ${newKey}");
+
+    userId = newKey['userid'];
+    name = newKey['name'];
+    email = newKey['email'];
   }
 }

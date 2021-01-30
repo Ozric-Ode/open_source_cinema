@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
@@ -36,15 +35,18 @@ class Auth with ChangeNotifier {
   }
 
   String get authUserId {
+    fun();
+    print("Hello ${_authUserId}");
     return _authUserId;
   }
 
   Future<void> fun() async {
+    print("Hiiiiii   ${_authUserId}");
     final dbRef = FirebaseDatabase.instance.reference().child("users");
 
     await dbRef
         .orderByChild("userid")
-        .equalTo("TG3flo3AUseRONcN7ls3Y6RcoKP2")
+        .equalTo(_userId)
         .once()
         .then((DataSnapshot dataSnapshot) {
       var newKey = dataSnapshot.value;
@@ -57,6 +59,7 @@ class Auth with ChangeNotifier {
       // print(userAuthid);
       newKey.forEach((k, v) {
         _authUserId = k;
+        //notifyListeners();
         print("Chutiyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         
       });
@@ -99,7 +102,7 @@ class Auth with ChangeNotifier {
         //print(_authUserId);
       }
       fun();
-      //print(_authUserId);
+      print("Bye   ${_authUserId}");
       _autoLogout();
       notifyListeners();
       final prefs = await SharedPreferences.getInstance();
