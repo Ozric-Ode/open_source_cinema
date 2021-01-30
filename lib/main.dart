@@ -36,17 +36,18 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Lato',
             ),
             home: auth.isAuth
-                ? Scaffold(
-                  appBar: AppBar(title: Text("Open Source Cinema"),),
-                    body: Center(
-                      child: FlatButton(
-                        child: Text("Log out"),
-                        onPressed: () {
-                          auth.logout();
-                        },
-                      ),
-                    ),
-                  )
+                // ? Scaffold(
+                //   appBar: AppBar(title: Text("Open Source Cinema"),),
+                //     body: Center(
+                //       child: FlatButton(
+                //         child: Text("Log out"),
+                //         onPressed: () {
+                //           auth.logout();
+                //         },
+                //       ),
+                //     ),
+                //   )
+                ? RepoOverview()
                 : FutureBuilder(
                     future: auth.tryAutoLogin(),
                     builder: (ctx, authResultSnapshot) =>
