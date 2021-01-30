@@ -14,8 +14,7 @@ class Repo with ChangeNotifier {
     @required this.repoId,
     @required this.parentRepoId,
     @required this.authorId,
-    @required this.title,
-    @required this.isForked,
+    @required this.title,   
     this.description,
   });
 }

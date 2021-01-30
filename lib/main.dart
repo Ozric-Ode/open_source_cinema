@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:open_source_cinema/providers/repo_provider.dart';
-import 'package:open_source_cinema/screens/repo_overview.dart';
 import 'package:provider/provider.dart';
+import 'package:open_source_cinema/screens/user_screen.dart';
 
-import 'providers/auth.dart';
-import 'screens/auth_screen.dart';
+import './providers/repo_provider.dart';
+import './screens/auth_screen.dart';
+import './screens/home.dart';
+import './providers/auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,12 +20,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
+
         providers: [
-          ChangeNotifierProvider(
-            create: (ctx) => RepoProvider(),
-          ),
           ChangeNotifierProvider.value(
             value: Auth(),
+          ),
+          ChangeNotifierProxyProvider<Auth, RepoProvider>(
+            create: null,
+            update: (ctx, auth, previousRepo) => RepoProvider(
+              auth.token,
+              auth.userId,
+              previousRepo == null ? [] : previousRepo.repo,
+            ),
           ),
         ],
         child: Consumer<Auth>(
@@ -47,7 +54,7 @@ class MyApp extends StatelessWidget {
                 //       ),
                 //     ),
                 //   )
-                ? RepoOverview()
+                ? Home()
                 : FutureBuilder(
                     future: auth.tryAutoLogin(),
                     builder: (ctx, authResultSnapshot) =>
@@ -71,5 +78,6 @@ class MyApp extends StatelessWidget {
             // ),
           ),
         ));
+
   }
 }

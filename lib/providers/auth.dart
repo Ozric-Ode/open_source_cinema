@@ -51,16 +51,11 @@ class Auth with ChangeNotifier {
         .then((DataSnapshot dataSnapshot) {
       var newKey = dataSnapshot.value;
       print(newKey);
-      // var _list = newKey.keys.toList();
-      // print(_list);
-      // var _lis = _list[0].values.toList();
-      // print(_lis);
-      // String userAuthid = _lis[1];
-      // print(userAuthid);
+     
       newKey.forEach((k, v) {
         _authUserId = k;
-        //notifyListeners();
-        print("Chutiyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+       
+        
         
       });
       print(_authUserId);
@@ -95,11 +90,9 @@ class Auth with ChangeNotifier {
           ),
         ),
       );
-      //print(responseData);
       if (name != "") {
         User user = new User(name: name, email: email, userId: _userId);
        _authUserId = await user.addUsers(token);
-        //print(_authUserId);
       }
       fun();
       print("Bye   ${_authUserId}");
@@ -159,7 +152,7 @@ class Auth with ChangeNotifier {
     }
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
-    // prefs.remove('userData');
+  
     prefs.clear();
   }
 
