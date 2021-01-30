@@ -1,39 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
-
+import 'dart:async';
 import '../providers/auth.dart';
 
 class AppDrawer extends StatelessWidget {
-  Map<String, dynamic> umap;
-   User userObj=new User();
+  User obj = new User(email: "", name: "", userId: "asdsadasdsad");
+  String initavatar=" ";
+  User userObj = new User();
   Future<void> getuser(BuildContext context) async {
     final authUserId = Provider.of<Auth>(context, listen: true).authUserId;
     print("Authuserid-- ${authUserId}");
-    Users obj;
-   
-    User.fetchUser(authUserId,  obj);
-    print("Naam = ${obj.name}");
-    
+
+    obj = await User.fetchUser(authUserId);
+    initavatar=obj.name.substring(0,1).toUpperCase();
+    print('madarchod bhosdika ${obj.name}  ${obj.email} ${obj.userId}');
   }
 
   @override
   Widget build(BuildContext context) {
-    //getuser(context); 
-    
+    getuser(context);
+
     return Drawer(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("Monikindirjit Sigh"),
-            accountEmail: Text("monik@gmail.com"),
+            accountName: FutureBuilder(
+              future: Future.delayed(Duration(milliseconds: 500)),
+              builder: (context, snapshot) {
+                // if(snapshot.hasData)
+                return Text(obj.name);
+              },
+            ),
+            accountEmail: FutureBuilder(
+              future: Future.delayed(Duration(milliseconds: 500)),
+              builder: (context, snapshot) {
+                // if(snapshot.hasData)
+                return Text(obj.email);
+              },
+            ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                   ? Colors.blue
                   : Colors.white,
-              child: Text(
-                "M",
-                style: TextStyle(fontSize: 40.0),
+              child: FutureBuilder(
+                future: Future.delayed(Duration(milliseconds: 500)),
+                builder: (context, snapshot) {
+                  // if(snapshot.hasData)
+                  return Text(
+                    initavatar,
+                    style: TextStyle(fontSize: 40.0),
+                  );
+                },
               ),
             ),
           ),
