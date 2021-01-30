@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_source_cinema/providers/repo_provider.dart';
+import 'package:open_source_cinema/screens/repo_overview.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,9 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Open Source Cinema',
-        home: Scaffold(
-          appBar: AppBar(title: Text('Open Source Cinema')),
-        ),
+        home: RepoOverview()
       ),
     );
   }
