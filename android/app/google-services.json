@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "132633485879",
+    "project_id": "open-source-cinema",
+    "storage_bucket": "open-source-cinema.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132633485879:android:a793f97f689dc8a56995b2",
+        "android_client_info": {
+          "package_name": "com.example.open_source_cinema"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132633485879-2kkqotf57vqupcd4slr4trj81jn4s97v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD43UTBnYNLYJslPFsWrhsQ9RAZbbTqdZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132633485879-2kkqotf57vqupcd4slr4trj81jn4s97v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
