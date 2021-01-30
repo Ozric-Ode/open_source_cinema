@@ -4,17 +4,24 @@ import '../models/repo.dart';
 import '../providers/repo_provider.dart';
 
 class RepoTile extends StatelessWidget {
-  @override
-  final title;
-  final 
+  final String title;
+  final String desc;
+  RepoTile(
+    this.title,
+    this.desc,
+  );
 
+  @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
         leading: FlutterLogo(size: 56.0),
-        title: Text('Two-line ListTile'),
-        subtitle: Text('Here is a second line'),
-        trailing: Icon(Icons.more_vert),
+        title: Text(title),
+        subtitle: Text(desc),
+        trailing: Icon(
+          Icons.star_border,
+          color: Colors.yellow,
+        ),
       ),
     );
   }
