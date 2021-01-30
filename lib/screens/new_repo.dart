@@ -16,7 +16,6 @@ class _NewRepoState extends State<NewRepo> {
     authorId: '',
     parentRepoId: '',
     repoId: '',
-
   );
   @override
   Widget build(BuildContext context) {
@@ -26,10 +25,8 @@ class _NewRepoState extends State<NewRepo> {
           key: _form,
           child: ListView(children: <Widget>[
             TextFormField(
-              
               decoration: InputDecoration(labelText: 'Title'),
               textInputAction: TextInputAction.next,
-              
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please provide a value.';
@@ -41,10 +38,7 @@ class _NewRepoState extends State<NewRepo> {
                   title: value,
                   description: _newRepo.description,
                   authorId: _newRepo.authorId,
-                  
-
                 );
-                
               },
             ),
           ])),
