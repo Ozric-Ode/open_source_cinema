@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../models/repo.dart';
 
 class RepoProvider with ChangeNotifier {
-  List<Repo> repo = [
+  List<Repo> _repo = [
     Repo(
       repoId: '0',
       parentRepoId: '0',
@@ -31,4 +31,7 @@ class RepoProvider with ChangeNotifier {
       isForked: false,
     ),
   ];
+  List<Repo> get repo {
+    return [..._repo];
+  }
 }
