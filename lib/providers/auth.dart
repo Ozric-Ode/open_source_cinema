@@ -1,12 +1,14 @@
-import 'dart:convert';
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/user.dart';
 
 import '../models/http_exception.dart';
+import '../models/user.dart';
 
 class Auth with ChangeNotifier {
   String apiKey = "AIzaSyD43UTBnYNLYJslPFsWrhsQ9RAZbbTqdZU";
@@ -37,6 +39,31 @@ class Auth with ChangeNotifier {
     return _authUserId;
   }
 
+  Future<void> fun() async {
+    final dbRef = FirebaseDatabase.instance.reference().child("users");
+
+    await dbRef
+        .orderByChild("userid")
+        .equalTo("TG3flo3AUseRONcN7ls3Y6RcoKP2")
+        .once()
+        .then((DataSnapshot dataSnapshot) {
+      var newKey = dataSnapshot.value;
+      print(newKey);
+      // var _list = newKey.keys.toList();
+      // print(_list);
+      // var _lis = _list[0].values.toList();
+      // print(_lis);
+      // String userAuthid = _lis[1];
+      // print(userAuthid);
+      newKey.forEach((k, v) {
+        _authUserId = k;
+        print("Chutiyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        
+      });
+      print(_authUserId);
+    });
+  }
+
   Future<void> _authenticate(
       String email, String password, String name, String urlSegment) async {
     final url =
@@ -65,12 +92,14 @@ class Auth with ChangeNotifier {
           ),
         ),
       );
-      print(responseData);
+      //print(responseData);
       if (name != "") {
         User user = new User(name: name, email: email, userId: _userId);
-        _authUserId = await user.addUsers(token);
-        print(_authUserId);
+       _authUserId = await user.addUsers(token);
+        //print(_authUserId);
       }
+      fun();
+      //print(_authUserId);
       _autoLogout();
       notifyListeners();
       final prefs = await SharedPreferences.getInstance();
