@@ -17,6 +17,7 @@ class _NewRepoState extends State<NewRepo> {
     authorId: '',
     parentRepoId: '',
     repoId: '',
+    genre: '',
   );
 
   Future<void> _saveForm() async {
@@ -61,6 +62,28 @@ class _NewRepoState extends State<NewRepo> {
                         authorId: _newRepo.authorId,
                         parentRepoId: _newRepo.parentRepoId,
                         repoId: _newRepo.repoId,
+                        genre: _newRepo.genre,
+                      );
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Genre'),
+                    textInputAction: TextInputAction.next,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please provide a value.';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      print("Genre $value");
+                      _newRepo = Repo(
+                        title: _newRepo.title,
+                        description: _newRepo.description,
+                        authorId: _newRepo.authorId,
+                        parentRepoId: _newRepo.parentRepoId,
+                        repoId: _newRepo.repoId,
+                        genre: value,
                       );
                     },
                   ),
@@ -80,12 +103,12 @@ class _NewRepoState extends State<NewRepo> {
                     onSaved: (value) {
                       print("Des $value");
                       _newRepo = Repo(
-                        title: _newRepo.title,
-                        description: value,
-                        authorId: _newRepo.authorId,
-                        parentRepoId: _newRepo.parentRepoId,
-                        repoId: _newRepo.repoId,
-                      );
+                          title: _newRepo.title,
+                          description: value,
+                          authorId: _newRepo.authorId,
+                          parentRepoId: _newRepo.parentRepoId,
+                          repoId: _newRepo.repoId,
+                          genre: _newRepo.genre);
                     },
                   ),
                 ],
