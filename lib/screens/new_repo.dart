@@ -26,6 +26,8 @@ class _NewRepoState extends State<NewRepo> {
       return;
     }
     _form.currentState.save();
+    _form.currentState.reset();
+
     try {
       await Provider.of<RepoProvider>(context, listen: false).addRepo(_newRepo);
     } catch (e) {
@@ -116,7 +118,26 @@ class _NewRepoState extends State<NewRepo> {
             ),
           ),
         ),
-        FlatButton(onPressed: _saveForm, child: Text('Create New Repo'))
+        FlatButton(
+            onPressed: () {
+              _saveForm();
+              return showDialog( 
+                context: context, 
+                builder: (ctx) => AlertDialog( 
+                  title: Text("Congrats!!"), 
+                  content: Text("New Bucket added!!\nGo to My profiles->My Buckets to add scripts into your brand new bucket"), 
+                  actions: <Widget>[ 
+                    FlatButton( 
+                      onPressed: () { 
+                        Navigator.of(ctx).pop(); 
+                      }, 
+                      child: Text("Okay"), 
+                    ), 
+                  ], 
+                ), 
+              ); 
+            },
+            child: Text('Create New Repo'))
       ],
     ));
   }

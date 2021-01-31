@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
@@ -7,14 +6,14 @@ import '../providers/auth.dart';
 
 class AppDrawer extends StatelessWidget {
   User obj = new User(email: "", name: "", userId: "asdsadasdsad");
-  String initavatar = " ";
+  String initavatar=" ";
   User userObj = new User();
   Future<void> getuser(BuildContext context) async {
     final authUserId = Provider.of<Auth>(context, listen: true).authUserId;
     print("Authuserid-- ${authUserId}");
 
     obj = await User.fetchUser(authUserId);
-    initavatar = obj.name.substring(0, 1).toUpperCase();
+    initavatar=obj.name.substring(0,1).toUpperCase();
     print('madarchod bhosdika ${obj.name}  ${obj.email} ${obj.userId}');
   }
 
@@ -27,14 +26,14 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: 500)),
+              future: Future.delayed(Duration(milliseconds: 1000)),
               builder: (context, snapshot) {
                 // if(snapshot.hasData)
                 return Text(obj.name);
               },
             ),
             accountEmail: FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: 500)),
+              future: Future.delayed(Duration(milliseconds: 1000)),
               builder: (context, snapshot) {
                 // if(snapshot.hasData)
                 return Text(obj.email);
@@ -45,7 +44,7 @@ class AppDrawer extends StatelessWidget {
                   ? Colors.blue
                   : Colors.white,
               child: FutureBuilder(
-                future: Future.delayed(Duration(milliseconds: 500)),
+                future: Future.delayed(Duration(milliseconds: 1000)),
                 builder: (context, snapshot) {
                   // if(snapshot.hasData)
                   return Text(
