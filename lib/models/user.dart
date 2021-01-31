@@ -7,8 +7,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Users {
-  String userId;
+class Users{
+   String userId;
   String name;
   String email;
 
@@ -17,6 +17,7 @@ class Users {
     this.name,
     this.email,
   });
+
 }
 
 class User with ChangeNotifier {
@@ -65,9 +66,8 @@ class User with ChangeNotifier {
       print("Name = ${newKey['name']}");
     });
     print("Madarchod ${newKey}");
-
-    User userobj = new User(
-        userId: newKey['userid'], email: newKey['email'], name: newKey['name']);
-    return userobj;
+    
+    User userobj=new User(userId:newKey['userid'] ,email:newKey['email'] ,name:newKey['name']);
+     return userobj;
   }
 }

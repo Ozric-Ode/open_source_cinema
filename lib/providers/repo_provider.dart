@@ -127,4 +127,8 @@ class RepoProvider with ChangeNotifier {
   List<Repo> get notMeRepo {
     return [..._homeRepo];
   }
+
+  List<Repo> get meRepo {
+    return _repo.where((element) => element.authorId==userId).toList();
+  }
 }
