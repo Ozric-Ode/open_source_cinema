@@ -61,7 +61,7 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
                               builder: (ctx) => AlertDialog(
                                 title: Text("Yippee!!"),
                                 content: Text(
-                                    "Shelf Forked!!\nGo to My profiles->My shelf to add bits and pieces into your brand new shelf"),
+                                    "Shelf Forked!!\nGo to My profiles->My shelf to add bits and pieces to this forked shelf"),
                                 actions: <Widget>[
                                   FlatButton(
                                     onPressed: () {
