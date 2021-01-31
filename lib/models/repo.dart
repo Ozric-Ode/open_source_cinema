@@ -18,5 +18,6 @@ class Repo with ChangeNotifier {
     @required this.title,
     this.genre,
     this.description,
-  });
+    List<String>script,
+  }):script=script??[];
 }
