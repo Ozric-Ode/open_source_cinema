@@ -17,6 +17,7 @@ class _NewRepoState extends State<NewRepo> {
     authorId: '',
     parentRepoId: '',
     repoId: '',
+    genre: '',
   );
 
   Future<void> _saveForm() async {
@@ -25,6 +26,8 @@ class _NewRepoState extends State<NewRepo> {
       return;
     }
     _form.currentState.save();
+    _form.currentState.reset();
+
     try {
       await Provider.of<RepoProvider>(context, listen: false).addRepo(_newRepo);
     } catch (e) {
@@ -38,7 +41,7 @@ class _NewRepoState extends State<NewRepo> {
         child: Column(
       children: [
         Flexible(
-                  child: Padding(
+          child: Padding(
             padding: EdgeInsets.all(8),
             child: Form(
               key: _form,
@@ -61,6 +64,28 @@ class _NewRepoState extends State<NewRepo> {
                         authorId: _newRepo.authorId,
                         parentRepoId: _newRepo.parentRepoId,
                         repoId: _newRepo.repoId,
+                        genre: _newRepo.genre,
+                      );
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Genre'),
+                    textInputAction: TextInputAction.next,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please provide a value.';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      print("Genre $value");
+                      _newRepo = Repo(
+                        title: _newRepo.title,
+                        description: _newRepo.description,
+                        authorId: _newRepo.authorId,
+                        parentRepoId: _newRepo.parentRepoId,
+                        repoId: _newRepo.repoId,
+                        genre: value,
                       );
                     },
                   ),
@@ -80,12 +105,12 @@ class _NewRepoState extends State<NewRepo> {
                     onSaved: (value) {
                       print("Des $value");
                       _newRepo = Repo(
-                        title: _newRepo.title,
-                        description: value,
-                        authorId: _newRepo.authorId,
-                        parentRepoId: _newRepo.parentRepoId,
-                        repoId: _newRepo.repoId,
-                      );
+                          title: _newRepo.title,
+                          description: value,
+                          authorId: _newRepo.authorId,
+                          parentRepoId: _newRepo.parentRepoId,
+                          repoId: _newRepo.repoId,
+                          genre: _newRepo.genre);
                     },
                   ),
                 ],
@@ -93,7 +118,26 @@ class _NewRepoState extends State<NewRepo> {
             ),
           ),
         ),
-        FlatButton(onPressed: _saveForm, child: Text('Create New Repo'))
+        FlatButton(
+            onPressed: () {
+              _saveForm();
+              return showDialog( 
+                context: context, 
+                builder: (ctx) => AlertDialog( 
+                  title: Text("Congrats!!"), 
+                  content: Text("New Bucket added!!\nGo to My profiles->My Buckets to add scripts into your brand new bucket"), 
+                  actions: <Widget>[ 
+                    FlatButton( 
+                      onPressed: () { 
+                        Navigator.of(ctx).pop(); 
+                      }, 
+                      child: Text("Okay"), 
+                    ), 
+                  ], 
+                ), 
+              ); 
+            },
+            child: Text('Create New Repo'))
       ],
     ));
   }

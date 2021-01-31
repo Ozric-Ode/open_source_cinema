@@ -7,27 +7,28 @@ import '../models/repo.dart';
 class RepoProvider with ChangeNotifier {
   List<Repo> _repo = [
     Repo(
-      repoId: '0',
-      parentRepoId: '0',
-      authorId: '0',
-      title: 'Dummy ',
-      description: 'Just a dummy description of the repo',
-    ),
+        repoId: '0',
+        parentRepoId: '0',
+        authorId: '0',
+        title: 'Dummy ',
+        description: 'Just a dummy description of the repo',
+        genre: 'tragedy'),
     Repo(
-      repoId: '1',
-      parentRepoId: '0',
-      authorId: '0',
-      title: 'Dummy 2',
-      description: 'Just a dummy description of the repo',
-    ),
+        repoId: '1',
+        parentRepoId: '0',
+        authorId: '0',
+        title: 'Dummy 2',
+        description: 'Just a dummy description of the repo',
+        genre: 'comedy'),
     Repo(
-      repoId: '2',
-      parentRepoId: '0',
-      authorId: '0',
-      title: 'Dummy 3',
-      description: 'Just a dummy description of the repo',
-    ),
+        repoId: '2',
+        parentRepoId: '0',
+        authorId: '0',
+        title: 'Dummy 3',
+        description: 'Just a dummy description of the repo',
+        genre: 'comedy'),
   ];
+  List<Repo> _homeRepo = [];
   final String authToken;
   final String userId;
   RepoProvider(this.authToken, this.userId, this._repo);
@@ -48,6 +49,7 @@ class RepoProvider with ChangeNotifier {
           'parentRepoId': userId,
           'authorId': userId,
           'description': repo.description,
+          'genre': repo.genre,
         }),
       );
       final newRepo = Repo(
@@ -56,6 +58,7 @@ class RepoProvider with ChangeNotifier {
         description: repo.description,
         parentRepoId: userId,
         authorId: userId,
+        genre: repo.genre,
       );
       _repo.add(newRepo);
       // _items.insert(0, newProduct); // at the start of the list
@@ -78,21 +81,22 @@ class RepoProvider with ChangeNotifier {
       }
 
       final List<Repo> loadedRepos = [];
+
       extractedData.forEach((repoId, repoData) {
         loadedRepos.add(Repo(
-          // id: prodId,
-          // title: prodData['title'],
-          // description: prodData['description'],
-          // price: prodData['price'],
-          // isFavorite:
-          //     favoriteData == null ? false : favoriteData[prodId] ?? false,
-          // imageUrl: prodData['imageUrl'],
-          repoId: repoId,
-          title: repoData['title'],
-          description: repoData['description'],
-          authorId: repoData['authorId'],
-          parentRepoId: repoData['parentRepoId'],
-        ));
+            // id: prodId,
+            // title: prodData['title'],
+            // description: prodData['description'],
+            // price: prodData['price'],
+            // isFavorite:
+            //     favoriteData == null ? false : favoriteData[prodId] ?? false,
+            // imageUrl: prodData['imageUrl'],
+            repoId: repoId,
+            title: repoData['title'],
+            description: repoData['description'],
+            authorId: repoData['authorId'],
+            parentRepoId: repoData['parentRepoId'],
+            genre: repoData['genre']));
       });
       // _items = loadedProducts;
       _repo = loadedRepos;
@@ -107,7 +111,24 @@ class RepoProvider with ChangeNotifier {
     return [..._repo];
   }
 
+  void homerepo(String genre) {
+    if (genre != 'All') {
+      _homeRepo = _repo
+          .where((element) =>
+              (element.genre == genre && element.authorId != userId))
+          .toList();
+      print('allis fine');
+    } else {
+      _homeRepo = _repo.where((element) => element.authorId != userId).toList();
+    }
+    notifyListeners();
+  }
+
   List<Repo> get notMeRepo {
-    return _repo.where((element) => element.authorId != userId).toList();
+    return [..._homeRepo];
+  }
+
+  List<Repo> get meRepo {
+    return _repo.where((element) => element.authorId==userId).toList();
   }
 }

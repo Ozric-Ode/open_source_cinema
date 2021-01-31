@@ -92,7 +92,7 @@ class UserScreen extends StatelessWidget {
             height: 10,
           ),
           Flexible(
-            child: RepoList(),
+            child: RepoList(1),
           ),
         ],
       ),
