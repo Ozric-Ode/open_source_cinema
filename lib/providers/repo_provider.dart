@@ -165,4 +165,10 @@ class RepoProvider with ChangeNotifier {
   List<Repo> get meRepo {
     return _repo.where((element) => element.authorId==userId).toList();
   }
+  List<Repo> get showforkRepo {
+    return _repo.where((element) => element.authorId==userId && element.parentRepoId!=element.authorId).toList();
+  }
+
 }
+
+

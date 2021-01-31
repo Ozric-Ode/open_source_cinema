@@ -46,7 +46,7 @@ class RepoOverview extends StatelessWidget {
           height: 50,
           child: FilterChipScreen(),
         ),
-        Expanded(child: RepoList(0)),
+        Expanded(child: RepoList(0,0)),
       ],
     );
   }

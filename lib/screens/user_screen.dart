@@ -1,4 +1,6 @@
 import 'package:open_source_cinema/widgets/repo_list.dart';
+import 'package:open_source_cinema/screens/fork_repo.dart';
+import 'package:open_source_cinema/screens/own_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
@@ -91,9 +93,40 @@ class UserScreen extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Flexible(
-            child: RepoList(1),
-          ),
+          
+            FlatButton(
+              
+              onPressed: ()
+              {
+                Navigator.of(context)
+              .pushNamed(ForkRepo.routename);
+
+               },
+               child: Container( 
+                width:MediaQuery.of(context).size.width,
+            height:MediaQuery.of(context).size.height*(1/10),
+            child:Text("my fork repos"),
+            ),
+            ),
+
+             FlatButton(
+              
+              onPressed: ()
+              {
+               Navigator.of(context)
+              .pushNamed(OwnRepo.routename);
+               },
+               child: Container( 
+                width:MediaQuery.of(context).size.width,
+            height:MediaQuery.of(context).size.height*(1/10),
+            child:Text("my own repos"),
+            ),
+            ),
+
+          
+          // Flexible(
+          //   child: RepoList(1),
+          // ),
         ],
       ),
       // ),
