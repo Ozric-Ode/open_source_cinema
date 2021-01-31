@@ -120,29 +120,28 @@ class _NewRepoState extends State<NewRepo> {
               ),
             ),
           ),
-          FlatButton(
-              onPressed: () {
-                _saveForm();
-                return showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                    title: Text("Congrats!!"),
-                    content: Text(
-                        "New Bucket added!!\nGo to My profiles->My Buckets to add scripts into your brand new bucket"),
-                    actions: <Widget>[
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text("Okay"),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: Text('Create New Repo'))
-        ],
-      )),
-    );
+        FlatButton(
+            onPressed: () {
+              _saveForm();
+              return showDialog( 
+                context: context, 
+                builder: (ctx) => AlertDialog( 
+                  title: Text("Congrats!!"), 
+                  content: Text("New Shelf added!!\nGo to My profiles->My shelves to add bits and pieces into your brand new shelf"), 
+                  actions: <Widget>[ 
+                    FlatButton( 
+                      onPressed: () { 
+                        Navigator.of(ctx).pop(); 
+                      }, 
+                      child: Text("Okay"), 
+                    ), 
+                  ], 
+                ), 
+              ); 
+            },
+            child: Text('Create New Shelf'))
+      ],
+        ),
+    ));
   }
 }

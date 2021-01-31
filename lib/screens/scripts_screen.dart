@@ -43,6 +43,54 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
               itemExtent: 100,
               itemCount: 20,
               itemBuilder: (ctx, i) {
+                if (i == 0) {
+                  return Container(
+                    padding: EdgeInsets.only(right: 28),
+                    color: Colors.white,
+                    alignment: Alignment.centerRight,
+                    height: 40,
+                    width: 60,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        RaisedButton(
+                          onPressed: () {
+                            // Navigator.of(context)
+                            //     .pushNamed(NewScript.routeName);
+                            Provider.of<RepoProvider>(
+                              context,
+                              listen: false,
+                            ).forkRepo(loadedRepo);
+                            return showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text("Yippee!!"),
+                                content: Text(
+                                    "Shelf Forked!!\nGo to My profiles->My shelf to add bits and pieces to this forked shelf"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(ctx).pop();
+                                    },
+                                    child: Text("Okay"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Text("Fork"),
+                        ),
+                        RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(NewScript.routeName);
+                          },
+                          child: Text("Add Script"),
+                        ),
+                      ],
+                    ),
+                  );
+                }
                 return Container(
                   color: Colors.white54,
                   width: MediaQuery.of(context).size.width,
