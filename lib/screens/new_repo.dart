@@ -137,7 +137,7 @@ class _NewRepoState extends State<NewRepo> {
                 ), 
               ); 
             },
-            child: Text('Create New Repo'))
+            child: Text('Create New Shelf'))
       ],
     ));
   }

@@ -32,7 +32,7 @@ class AuthScreen extends StatelessWidget {
                 vertical: deviceWidth * 0.02037037,
               ),
               child: Text(
-                "Open source Cinema",
+                "Bits and Pieces",
                 // softWrap: true,
                 textAlign: TextAlign.center,
                 style: TextStyle(

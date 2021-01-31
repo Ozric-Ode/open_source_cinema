@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
-        title: Text('Open Source Cinema'),
+        title: Text('Bits and Pieces'),
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
-            label: 'New Script',
+            label: 'New Shelf',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
