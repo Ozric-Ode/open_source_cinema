@@ -50,8 +50,28 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
                       children: [
                         RaisedButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(NewScript.routeName);
+                            // Navigator.of(context)
+                            //     .pushNamed(NewScript.routeName);
+                            Provider.of<RepoProvider>(
+                              context,
+                              listen: false,
+                            ).forkRepo(loadedRepo);
+                            return showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text("Yippee!!"),
+                                content: Text(
+                                    "Shelf Forked!!\nGo to My profiles->My shelf to add bits and pieces into your brand new shelf"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(ctx).pop();
+                                    },
+                                    child: Text("Okay"),
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                           child: Text("Fork"),
                         ),
@@ -65,7 +85,7 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
                       ],
                     ),
                   );
-                } 
+                }
                 return Container(
                   color: Colors.white54,
                   width: MediaQuery.of(context).size.width,

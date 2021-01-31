@@ -125,7 +125,7 @@ class _NewRepoState extends State<NewRepo> {
                 context: context, 
                 builder: (ctx) => AlertDialog( 
                   title: Text("Congrats!!"), 
-                  content: Text("New Bucket added!!\nGo to My profiles->My Buckets to add scripts into your brand new bucket"), 
+                  content: Text("New Shelf added!!\nGo to My profiles->My shelves to add bits and pieces into your brand new shelf"), 
                   actions: <Widget>[ 
                     FlatButton( 
                       onPressed: () { 
