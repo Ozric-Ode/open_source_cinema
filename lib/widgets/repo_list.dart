@@ -18,6 +18,7 @@ class _RepoListState extends State<RepoList> {
     // TODO: implement didChangeDependencies
     if (_isInit) {
       Provider.of<RepoProvider>(context).fetchAndSetRepos();
+      Provider.of<RepoProvider>(context, listen: false).homerepo('All');
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -25,7 +26,10 @@ class _RepoListState extends State<RepoList> {
 
   @override
   Widget build(BuildContext context) {
-    final repoList = Provider.of<RepoProvider>(context).notMeRepo;
+    final repo = Provider.of<RepoProvider>(context);
+
+    final repoList = repo.notMeRepo;
+    print(repoList);
     return Container(
       child: ListView.builder(
         padding: EdgeInsets.all(10.0),
