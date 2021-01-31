@@ -33,6 +33,37 @@ class RepoProvider with ChangeNotifier {
   final String userId;
   RepoProvider(this.authToken, this.userId, this._repo);
 
+ Future<void> forkRepo(Repo repo) async {
+    final url =
+        'https://open-source-cinema-default-rtdb.firebaseio.com/repos.json?auth=$authToken';
+ 
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'title': repo.title,
+          'parentRepoId': repo.authorId,
+          'authorId': userId,
+          'description': repo.description,
+          'genre': repo.genre,
+        }),
+      );
+      final newRepo = Repo(
+        title: repo.title,
+        repoId: json.decode(response.body)['name'],
+        description: repo.description,
+        parentRepoId: repo.authorId,
+        authorId: userId,
+        genre: repo.genre,
+      );
+      _repo.add(newRepo);
+      // _items.insert(0, newProduct); // at the start of the list
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
   Future<void> addRepo(Repo repo) async {
     final url =
         'https://open-source-cinema-default-rtdb.firebaseio.com/repos.json?auth=$authToken';

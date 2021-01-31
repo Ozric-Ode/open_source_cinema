@@ -52,7 +52,7 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
                       child: Text("Add Script"),
                     ),
                   );
-                }
+                } 
                 return Container(
                   color: Colors.white54,
                   width: MediaQuery.of(context).size.width,
