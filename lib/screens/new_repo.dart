@@ -22,6 +22,7 @@ class _NewRepoState extends State<NewRepo> {
   Widget build(BuildContext context) {
     return Container(
         child: Padding(
+          padding: EdgeInsets.all(8),
       child: Form(
           key: _form,
           child: ListView(children: <Widget>[
