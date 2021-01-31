@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:open_source_cinema/models/repo.dart';
+import 'package:open_source_cinema/models/scripts.dart';
 import 'package:open_source_cinema/providers/repo_provider.dart';
 import 'package:open_source_cinema/screens/new_script.dart';
 import 'package:open_source_cinema/widgets/drawer.dart';
@@ -14,17 +16,20 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
-    final repoId =
+    return Scaffold(
+      drawer: AppDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          final repoId =
         ModalRoute.of(context).settings.arguments as String; // is the id!
-
     final loadedRepo = Provider.of<RepoProvider>(
       context,
       listen: false,
     ).findById(repoId);
-    debugPrint(loadedRepo.title);
-    debugPrint(loadedRepo.repoId);
-    return Scaffold(
-      drawer: AppDrawer(),
+          Navigator.of(context).pushNamed(NewScript.routeName,arguments: loadedRepo.repoId);
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text("Open Source Cinema"),
       ),
@@ -38,21 +43,6 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
               itemExtent: 100,
               itemCount: 20,
               itemBuilder: (ctx, i) {
-                if (i == 0) {
-                  return Container(
-                    padding: EdgeInsets.only(right: 28),
-                    color: Colors.white,
-                    alignment: Alignment.centerRight,
-                    height: 40,
-                    width: 60,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(NewScript.routeName);
-                      },
-                      child: Text("Add Script"),
-                    ),
-                  );
-                }
                 return Container(
                   color: Colors.white54,
                   width: MediaQuery.of(context).size.width,
@@ -65,18 +55,40 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
                             'Title',
                             style: TextStyle(fontSize: 30, color: Colors.grey),
                           ),
-                          trailing: IconButton(
-                            padding: EdgeInsets.symmetric(vertical: 18),
-                            icon: Icon(
-                              isFav ? Icons.favorite : Icons.favorite_border,
-                              size: 30,
-                              color: Colors.pink,
+                          trailing: Container(
+                            width: 100,
+                            child: Row(
+                              children: [
+                                
+                                IconButton(
+                                  padding: EdgeInsets.symmetric(vertical: 18),
+                                  icon: Icon(
+                                    isFav ? Icons.favorite : Icons.edit,
+                                    size: 25,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      // isFav = !isFav;
+                                    });
+                                  },
+                                ),
+                                IconButton(
+                                  padding: EdgeInsets.symmetric(vertical: 18),
+                                  icon: Icon(
+                                    isFav ? Icons.favorite : Icons.remove_red_eye_outlined,
+                                    size: 25,
+                                    color: Colors.blue[800],
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      
+                                      // isFav = !isFav;
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
-                            onPressed: () {
-                              setState(() {
-                                isFav = !isFav;
-                              });
-                            },
                           ),
                         ),
                       ),

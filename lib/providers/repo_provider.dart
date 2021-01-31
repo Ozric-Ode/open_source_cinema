@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:open_source_cinema/models/scripts.dart';
 import '../models/repo.dart';
 
 class RepoProvider with ChangeNotifier {
@@ -59,6 +60,7 @@ class RepoProvider with ChangeNotifier {
         parentRepoId: userId,
         authorId: userId,
         genre: repo.genre,
+        script: [],
       );
       _repo.add(newRepo);
       // _items.insert(0, newProduct); // at the start of the list
@@ -106,6 +108,35 @@ class RepoProvider with ChangeNotifier {
       //throw (error);
     }
   }
+
+  Future<void> addScript(String repoID, Scripts script) async {
+    final newScript = Scripts(content: script.content, title: script.title);
+    final repo = _repo.firstWhere((repoVal) => repoVal.repoId == repoID);
+    print("Respppss---->>${repo.title}");
+    print("TTTTT---->>>>>${script.title}");
+    print("aa");
+    print("---00->\n  ${repo.script}");
+
+    repo.script.add(newScript);
+    print("kt____---->>> \n${repo.script[0].content}");
+    final url =
+        'https://open-source-cinema-default-rtdb.firebaseio.com/repos/$repoID.json?auth=$authToken';
+    await http.patch(
+      url,
+      body: json.encode(
+        {
+          "script": repo.script
+              .map((scr) => {
+                    'title': scr.title,
+                    'content': scr.content,
+                  }).toList(),
+        },
+      ),
+    );
+    // _items[prodIndex] = newProduct;
+    notifyListeners();
+  }
+
   Repo findById(String id) {
     return _repo.firstWhere((repoVal) => repoVal.repoId == id);
   }
@@ -132,6 +163,6 @@ class RepoProvider with ChangeNotifier {
   }
 
   List<Repo> get meRepo {
-    return _repo.where((element) => element.authorId==userId).toList();
+    return _repo.where((element) => element.authorId == userId).toList();
   }
 }
