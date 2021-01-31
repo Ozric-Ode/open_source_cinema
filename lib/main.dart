@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
                 //       ),
                 //     ),
                 //   )
-                ?ScriptsScreen()// Home()
+                ? Home()
                 : FutureBuilder(
                     future: auth.tryAutoLogin(),
                     builder: (ctx, authResultSnapshot) =>
@@ -80,6 +80,8 @@ class MyApp extends StatelessWidget {
             //   },
             // ),
             routes: {
+             
+              ScriptsScreen.routeName:(context)=>ScriptsScreen(),
               NewScript.routeName:(context)=>NewScript(),
             },
           ),

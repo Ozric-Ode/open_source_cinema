@@ -37,7 +37,7 @@ class _RepoListState extends State<RepoList> {
         itemBuilder: (context, index) => ChangeNotifierProvider.value(
             value: repoList[index],
             //child: Container(child: Text(repoList[index].description)),
-            child: RepoTile()),
+            child: RepoTile(),),
       ),
     );
   }

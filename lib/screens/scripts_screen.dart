@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:open_source_cinema/providers/repo_provider.dart';
 import 'package:open_source_cinema/screens/new_script.dart';
 import 'package:open_source_cinema/widgets/drawer.dart';
+import 'package:provider/provider.dart';
 
 class ScriptsScreen extends StatefulWidget {
+  static final String routeName = "/routeName";
   @override
   _ScriptsScreenState createState() => _ScriptsScreenState();
 }
@@ -11,6 +14,15 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
   bool isFav = false;
   @override
   Widget build(BuildContext context) {
+    final repoId =
+        ModalRoute.of(context).settings.arguments as String; // is the id!
+
+    final loadedRepo = Provider.of<RepoProvider>(
+      context,
+      listen: false,
+    ).findById(repoId);
+    debugPrint(loadedRepo.title);
+    debugPrint(loadedRepo.repoId);
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(

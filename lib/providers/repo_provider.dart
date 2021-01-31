@@ -106,6 +106,9 @@ class RepoProvider with ChangeNotifier {
       //throw (error);
     }
   }
+  Repo findById(String id) {
+    return _repo.firstWhere((repoVal) => repoVal.repoId == id);
+  }
 
   List<Repo> get repo {
     return [..._repo];
