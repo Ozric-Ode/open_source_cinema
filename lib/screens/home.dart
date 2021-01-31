@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:open_source_cinema/screens/user_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:open_source_cinema/providers/repo_provider.dart';
@@ -19,7 +20,8 @@ class _HomeState extends State<Home> {
     RepoList(),
     // Container(color: Colors.amber),
     NewRepo(),
-    Container(color: Colors.brown),
+    // Container(color: Colors.brown),
+    UserScreen(),
   ];
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);

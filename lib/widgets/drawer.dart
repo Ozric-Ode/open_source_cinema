@@ -26,14 +26,14 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: 500)),
+              future: Future.delayed(Duration(milliseconds: 1000)),
               builder: (context, snapshot) {
                 // if(snapshot.hasData)
                 return Text(obj.name);
               },
             ),
             accountEmail: FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: 500)),
+              future: Future.delayed(Duration(milliseconds: 1000)),
               builder: (context, snapshot) {
                 // if(snapshot.hasData)
                 return Text(obj.email);
@@ -44,7 +44,7 @@ class AppDrawer extends StatelessWidget {
                   ? Colors.blue
                   : Colors.white,
               child: FutureBuilder(
-                future: Future.delayed(Duration(milliseconds: 500)),
+                future: Future.delayed(Duration(milliseconds: 1000)),
                 builder: (context, snapshot) {
                   // if(snapshot.hasData)
                   return Text(
