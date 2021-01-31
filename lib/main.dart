@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:open_source_cinema/providers/scripts_provider.dart';
 import 'package:open_source_cinema/screens/new_script.dart';
 import 'package:open_source_cinema/screens/scripts_screen.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
                 //       ),
                 //     ),
                 //   )
-                ?Home()
+                ?ScriptsScreen()// Home()
                 : FutureBuilder(
                     future: auth.tryAutoLogin(),
                     builder: (ctx, authResultSnapshot) =>

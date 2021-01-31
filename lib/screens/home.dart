@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:open_source_cinema/screens/repo_overview.dart';
+import 'package:open_source_cinema/widgets/repo_tile.dart';
 import 'package:provider/provider.dart';
 
 import 'package:open_source_cinema/providers/repo_provider.dart';
 import 'package:open_source_cinema/widgets/drawer.dart';
 import 'package:open_source_cinema/widgets/repo_list.dart';
+import './new_repo.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,8 +18,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    RepoList(),
-    Container(color: Colors.amber),
+    RepoOverview(),
+    // Container(color: Colors.amber),
+    NewRepo(),
     Container(color: Colors.brown),
   ];
   static const TextStyle optionStyle =

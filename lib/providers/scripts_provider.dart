@@ -2,32 +2,34 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:open_source_cinema/models/scripts.dart';
 import '../models/repo.dart';
 
-class RepoProvider with ChangeNotifier {
-  List<Repo> _repo = [
-    Repo(
-        repoId: '0',
-        parentRepoId: '0',
-        authorId: '0',
-        title: 'Dummy ',
-        description: 'Just a dummy description of the repo',
-        genre: 'tragedy'),
-    Repo(
-        repoId: '1',
-        parentRepoId: '0',
-        authorId: '0',
+class ScriptsProvider with ChangeNotifier {
+  List<Scripts> _scripts = [
+    Scripts(
+        
+        title: 'Dummy 1',
+        content: 'Just a dummy description of the repo',
+        ),
+    Scripts(
+        
         title: 'Dummy 2',
-        description: 'Just a dummy description of the repo',
-        genre: 'comedy'),
-    Repo(
-        repoId: '2',
-        parentRepoId: '0',
-        authorId: '0',
+        content: 'Just a dummy description of the repo',
+        ),
+    Scripts(
+        
         title: 'Dummy 3',
-        description: 'Just a dummy description of the repo',
-        genre: 'comedy'),
+        content: 'Just a dummy description of the repo',
+        ),
+    Scripts(
+        
+        title: 'Dummy 4',
+        content: 'Just a dummy description of the repo',
+        ),
+    
   ];
+  
   List<Repo> _homeRepo = [];
   final String authToken;
   final String userId;
