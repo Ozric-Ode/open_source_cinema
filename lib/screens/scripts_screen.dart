@@ -45,11 +45,24 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
                     alignment: Alignment.centerRight,
                     height: 40,
                     width: 60,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(NewScript.routeName);
-                      },
-                      child: Text("Add Script"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(NewScript.routeName);
+                          },
+                          child: Text("Fork"),
+                        ),
+                        RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(NewScript.routeName);
+                          },
+                          child: Text("Add Script"),
+                        ),
+                      ],
                     ),
                   );
                 }

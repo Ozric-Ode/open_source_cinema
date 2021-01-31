@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-
         providers: [
           ChangeNotifierProvider.value(
             value: Auth(),
@@ -80,12 +79,10 @@ class MyApp extends StatelessWidget {
             //   },
             // ),
             routes: {
-             
-              ScriptsScreen.routeName:(context)=>ScriptsScreen(),
-              NewScript.routeName:(context)=>NewScript(),
+              ScriptsScreen.routeName: (context) => ScriptsScreen(),
+              NewScript.routeName: (context) => NewScript(),
             },
           ),
         ));
-
   }
 }
