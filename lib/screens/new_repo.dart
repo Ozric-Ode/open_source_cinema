@@ -12,13 +12,13 @@ class NewRepo extends StatefulWidget {
 class _NewRepoState extends State<NewRepo> {
   final _form = GlobalKey<FormState>();
   var _newRepo = Repo(
-    title: '',
-    description: '',
-    authorId: '',
-    parentRepoId: '',
-    repoId: '',
-    genre: '',
-  );
+      title: '',
+      description: '',
+      authorId: '',
+      parentRepoId: '',
+      repoId: '',
+      genre: '',
+      reqScript: []);
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
@@ -59,13 +59,13 @@ class _NewRepoState extends State<NewRepo> {
                     onSaved: (value) {
                       print("Title $value");
                       _newRepo = Repo(
-                        title: value,
-                        description: _newRepo.description,
-                        authorId: _newRepo.authorId,
-                        parentRepoId: _newRepo.parentRepoId,
-                        repoId: _newRepo.repoId,
-                        genre: _newRepo.genre,
-                      );
+                          title: value,
+                          description: _newRepo.description,
+                          authorId: _newRepo.authorId,
+                          parentRepoId: _newRepo.parentRepoId,
+                          repoId: _newRepo.repoId,
+                          genre: _newRepo.genre,
+                          reqScript: _newRepo.reqScript);
                     },
                   ),
                   TextFormField(
@@ -80,13 +80,13 @@ class _NewRepoState extends State<NewRepo> {
                     onSaved: (value) {
                       print("Genre $value");
                       _newRepo = Repo(
-                        title: _newRepo.title,
-                        description: _newRepo.description,
-                        authorId: _newRepo.authorId,
-                        parentRepoId: _newRepo.parentRepoId,
-                        repoId: _newRepo.repoId,
-                        genre: value,
-                      );
+                          title: _newRepo.title,
+                          description: _newRepo.description,
+                          authorId: _newRepo.authorId,
+                          parentRepoId: _newRepo.parentRepoId,
+                          repoId: _newRepo.repoId,
+                          genre: value,
+                          reqScript: _newRepo.reqScript);
                     },
                   ),
                   TextFormField(
@@ -110,7 +110,8 @@ class _NewRepoState extends State<NewRepo> {
                           authorId: _newRepo.authorId,
                           parentRepoId: _newRepo.parentRepoId,
                           repoId: _newRepo.repoId,
-                          genre: _newRepo.genre);
+                          genre: _newRepo.genre,
+                          reqScript: _newRepo.reqScript);
                     },
                   ),
                 ],
@@ -121,21 +122,22 @@ class _NewRepoState extends State<NewRepo> {
         FlatButton(
             onPressed: () {
               _saveForm();
-              return showDialog( 
-                context: context, 
-                builder: (ctx) => AlertDialog( 
-                  title: Text("Congrats!!"), 
-                  content: Text("New Shelf added!!\nGo to My profiles->My shelves to add bits and pieces into your brand new shelf"), 
-                  actions: <Widget>[ 
-                    FlatButton( 
-                      onPressed: () { 
-                        Navigator.of(ctx).pop(); 
-                      }, 
-                      child: Text("Okay"), 
-                    ), 
-                  ], 
-                ), 
-              ); 
+              return showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: Text("Congrats!!"),
+                  content: Text(
+                      "New Shelf added!!\nGo to My profiles->My shelves to add bits and pieces into your brand new shelf"),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                      child: Text("Okay"),
+                    ),
+                  ],
+                ),
+              );
             },
             child: Text('Create New Shelf'))
       ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:open_source_cinema/providers/repo_provider.dart';
+import 'package:open_source_cinema/screens/new_request.dart';
 import 'package:open_source_cinema/screens/new_script.dart';
+import 'package:open_source_cinema/screens/requests_page.dart';
 import 'package:open_source_cinema/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -45,44 +47,75 @@ class _ScriptsScreenState extends State<ScriptsScreen> {
                     alignment: Alignment.centerRight,
                     height: 40,
                     width: 60,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        RaisedButton(
-                          onPressed: () {
-                            // Navigator.of(context)
-                            //     .pushNamed(NewScript.routeName);
-                            Provider.of<RepoProvider>(
-                              context,
-                              listen: false,
-                            ).forkRepo(loadedRepo);
-                            return showDialog(
-                              context: context,
-                              builder: (ctx) => AlertDialog(
-                                title: Text("Yippee!!"),
-                                content: Text(
-                                    "Shelf Forked!!\nGo to My profiles->My shelf to add bits and pieces to this forked shelf"),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                    },
-                                    child: Text("Okay"),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          child: Text("Fork"),
-                        ),
-                        RaisedButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(NewScript.routeName);
-                          },
-                          child: Text("Add Script"),
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          RaisedButton(
+                            onPressed: () {
+                              // Navigator.of(context)
+                              //     .pushNamed(NewScript.routeName);
+                              Provider.of<RepoProvider>(
+                                context,
+                                listen: false,
+                              ).forkRepo(loadedRepo);
+                              return showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text("Yippee!!"),
+                                  content: Text(
+                                      "Shelf Forked!!\nGo to My profiles->My shelf to add bits and pieces to this forked shelf"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                      },
+                                      child: Text("Okay"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            child: Text("Fork"),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          RaisedButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                NewScript.routeName,
+                              );
+                            },
+                            child: Text("Add Script"),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          (loadedRepo.authorId == loadedRepo.parentRepoId)
+                              ? Container()
+                              : RaisedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                        NewRequest.routeName,
+                                        arguments: loadedRepo);
+                                  },
+                                  child: Text(" send request"),
+                                ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          RaisedButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  RequestPage.routeName,
+                                  arguments: loadedRepo);
+                            },
+                            child: Text("request to me "),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 }

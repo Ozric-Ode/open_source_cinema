@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:open_source_cinema/models/request.dart';
 import '../models/repo.dart';
 
 class RepoProvider with ChangeNotifier {
@@ -12,31 +13,34 @@ class RepoProvider with ChangeNotifier {
         authorId: '0',
         title: 'Dummy ',
         description: 'Just a dummy description of the repo',
-        genre: 'tragedy'),
+        genre: 'tragedy',
+        reqScript: []),
     Repo(
         repoId: '1',
         parentRepoId: '0',
         authorId: '0',
         title: 'Dummy 2',
         description: 'Just a dummy description of the repo',
-        genre: 'comedy'),
+        genre: 'comedy',
+        reqScript: []),
     Repo(
         repoId: '2',
         parentRepoId: '0',
         authorId: '0',
         title: 'Dummy 3',
         description: 'Just a dummy description of the repo',
-        genre: 'comedy'),
+        genre: 'comedy',
+        reqScript: []),
   ];
   List<Repo> _homeRepo = [];
   final String authToken;
   final String userId;
   RepoProvider(this.authToken, this.userId, this._repo);
 
- Future<void> forkRepo(Repo repo) async {
+  Future<void> forkRepo(Repo repo) async {
     final url =
         'https://open-source-cinema-default-rtdb.firebaseio.com/repos.json?auth=$authToken';
- 
+
     try {
       final response = await http.post(
         url,
@@ -49,13 +53,13 @@ class RepoProvider with ChangeNotifier {
         }),
       );
       final newRepo = Repo(
-        title: repo.title,
-        repoId: json.decode(response.body)['name'],
-        description: repo.description,
-        parentRepoId: repo.authorId,
-        authorId: userId,
-        genre: repo.genre,
-      );
+          title: repo.title,
+          repoId: json.decode(response.body)['name'],
+          description: repo.description,
+          parentRepoId: repo.authorId,
+          authorId: userId,
+          genre: repo.genre,
+          reqScript: repo.reqScript);
       _repo.add(newRepo);
       // _items.insert(0, newProduct); // at the start of the list
       notifyListeners();
@@ -64,6 +68,7 @@ class RepoProvider with ChangeNotifier {
       throw error;
     }
   }
+
   Future<void> addRepo(Repo repo) async {
     final url =
         'https://open-source-cinema-default-rtdb.firebaseio.com/repos.json?auth=$authToken';
@@ -75,24 +80,27 @@ class RepoProvider with ChangeNotifier {
           // 'description': product.description,
           // 'imageUrl': product.imageUrl,
           // 'price': product.price,
-          'title': repo.title,
 
+          'title': repo.title,
           'parentRepoId': userId,
           'authorId': userId,
           'description': repo.description,
           'genre': repo.genre,
+          'reqScript': repo.reqScript,
         }),
       );
       final newRepo = Repo(
-        title: repo.title,
-        repoId: json.decode(response.body)['name'],
-        description: repo.description,
-        parentRepoId: userId,
-        authorId: userId,
-        genre: repo.genre,
-      );
+          title: repo.title,
+          repoId: json.decode(response.body)['name'],
+          description: repo.description,
+          parentRepoId: userId,
+          authorId: userId,
+          genre: repo.genre,
+          reqScript: repo.reqScript);
       _repo.add(newRepo);
+
       // _items.insert(0, newProduct); // at the start of the list
+
       notifyListeners();
     } catch (error) {
       print(error);
@@ -127,7 +135,8 @@ class RepoProvider with ChangeNotifier {
             description: repoData['description'],
             authorId: repoData['authorId'],
             parentRepoId: repoData['parentRepoId'],
-            genre: repoData['genre']));
+            genre: repoData['genre'],
+            reqScript: repoData['reqScript']));
       });
       // _items = loadedProducts;
       _repo = loadedRepos;
@@ -137,6 +146,7 @@ class RepoProvider with ChangeNotifier {
       //throw (error);
     }
   }
+
   Repo findById(String id) {
     return _repo.firstWhere((repoVal) => repoVal.repoId == id);
   }
@@ -163,6 +173,22 @@ class RepoProvider with ChangeNotifier {
   }
 
   List<Repo> get meRepo {
-    return _repo.where((element) => element.authorId==userId).toList();
+    return _repo.where((element) => element.authorId == userId).toList();
+  }
+
+  List<Request> request(var repoId) {
+    var req = _repo.firstWhere((repoVal) => repoVal.repoId == repoId);
+    return req.reqScript;
+  }
+
+  void addRequest(Request request) {
+    var req =
+        _repo.firstWhere((repoVal) => repoVal.repoId == request.parentRepoId);
+    req.reqScript.add(Request(
+        parentRepoId: request.parentRepoId,
+        childRepoId: request.childRepoId,
+        requestMessage: request.requestMessage,
+        title: request.title));
+    notifyListeners();
   }
 }
